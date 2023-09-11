@@ -12,10 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Handlers\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Repositories\" />
-    <Folder Include="Common\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>
