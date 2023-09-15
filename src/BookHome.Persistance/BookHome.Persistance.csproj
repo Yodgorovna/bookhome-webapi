@@ -11,9 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\Users\" />
-    <Folder Include="Dtos\Orders\" />
-    <Folder Include="Dtos\Discounts\" />
     <Folder Include="Validators\" />
     <Folder Include="Attributes\" />
     <Folder Include="Filters\" />
