@@ -3,7 +3,7 @@ using BookHome.Domain.Entities.Discounts;
 
 namespace Bookhome.DataAcces.Interfaces.Discounts;
 
-public interface IDiscountRepository : IRepository<Discount, Discount>
+public interface IDiscountRepository : IRepository<Discount, Discount>,
     IGetAll<Discount>
 {
 }
