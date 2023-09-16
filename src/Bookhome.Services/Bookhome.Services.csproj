@@ -12,15 +12,17 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Discounts\" />
-    <Folder Include="Interfaces\Orders\" />
-    <Folder Include="Interfaces\Users\" />
-    <Folder Include="Services\" />
     <Folder Include="Hubs\" />
     <Folder Include="Security\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.151" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
 </Project>

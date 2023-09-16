@@ -1,10 +1,8 @@
 ﻿using Bookhome.Application.Utils;
 using Bookhome.DataAcces.Interfaces.Categories;
-using Bookhome.DataAcces.ViewModels.Books;
 using BookHome.Domain.Entities.Categories;
 using Dapper;
-using System.Collections.Generic;
-using System.Xml.Linq;
+using static Dapper.SqlMapper;
 
 namespace Bookhome.DataAcces.Repositories.Categories;
 
@@ -34,8 +32,7 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "INSERT INTO public.categories(" +
-                "name, created_at, updated_at)" +
+            string query = "INSERT INTO public.categories (name, created_at, updated_at) " +
                 "VALUES (@Name, @CreatedAt, @UpdatedAt);";
             var result = await _connection.ExecuteAsync(query, entity);
             return result;

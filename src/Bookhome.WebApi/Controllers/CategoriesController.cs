@@ -1,5 +1,7 @@
-﻿using BookHome.Domain.Entities.Categories;
-using Microsoft.AspNetCore.Http;
+﻿using Bookhome.DataAcces.Interfaces.Categories;
+using Bookhome.DataAcces.Repositories.Categories;
+using Bookhome.Services.Interfaces.Categories;
+using BookHome.Persistance.Dtos.Categories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookhome.WebApi.Controllers;
@@ -8,9 +10,13 @@ namespace Bookhome.WebApi.Controllers;
 [ApiController]
 public class CategoriesController : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> CreateAsync([FromBody] Category category)
+    private readonly ICategoryService _service;
+
+    public CategoriesController(ICategoryService service)
     {
-        return Ok();
+        this._service = service;
     }
+    [HttpPost]
+    public async Task<IActionResult> CreateAsync([FromForm] CategoryCreateDto dto)
+        => Ok(await _service.CreateAsync(dto)); 
 }
