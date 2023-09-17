@@ -1,4 +1,4 @@
-﻿namespace Bookhome.Application.Exception.Categories;
+﻿namespace Bookhome.Application.Exceptions.Categories;
 
 public class CategoryNotFoundException : NotFoundException
 {

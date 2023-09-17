@@ -5,17 +5,22 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{067C7BBB-6372-42C8-A470-E0CAF417378E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookhome.DataAcces", "src\Bookhome.DataAcces\Bookhome.DataAcces.csproj", "{A00D2ED6-4C46-4F5E-A352-7098CCC46B31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookhome.DataAcces", "src\Bookhome.DataAcces\Bookhome.DataAcces.csproj", "{A00D2ED6-4C46-4F5E-A352-7098CCC46B31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookhome.Services", "src\Bookhome.Services\Bookhome.Services.csproj", "{F0C751D2-BB29-43B6-A410-A0A02E82FF47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookhome.Services", "src\Bookhome.Services\Bookhome.Services.csproj", "{F0C751D2-BB29-43B6-A410-A0A02E82FF47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookhome.Application", "src\Bookhome.Application\Bookhome.Application.csproj", "{8FB62D9F-5FB2-40A0-B956-72B97513D5D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookhome.Application", "src\Bookhome.Application\Bookhome.Application.csproj", "{8FB62D9F-5FB2-40A0-B956-72B97513D5D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookHome.Persistance", "src\BookHome.Persistance\BookHome.Persistance.csproj", "{A30EACB9-D43E-44BF-89F9-D7155B6AAE8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookHome.Persistance", "src\BookHome.Persistance\BookHome.Persistance.csproj", "{A30EACB9-D43E-44BF-89F9-D7155B6AAE8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookHome.Domain", "src\BookHome.Domain\BookHome.Domain.csproj", "{AAA26F71-859A-40DD-9C04-ABFC6A63D9AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookHome.Domain", "src\BookHome.Domain\BookHome.Domain.csproj", "{AAA26F71-859A-40DD-9C04-ABFC6A63D9AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookhome.WebApi", "src\Bookhome.WebApi\Bookhome.WebApi.csproj", "{03FB6304-2933-484A-9B14-1EEC3A5DB157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookhome.WebApi", "src\Bookhome.WebApi\Bookhome.WebApi.csproj", "{03FB6304-2933-484A-9B14-1EEC3A5DB157}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BD73E0C-63DD-4613-A0EA-BA73F0061FCC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

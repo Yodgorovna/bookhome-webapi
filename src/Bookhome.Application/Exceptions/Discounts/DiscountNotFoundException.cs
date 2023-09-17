@@ -1,4 +1,4 @@
-﻿namespace Bookhome.Application.Exception.Discounts;
+﻿namespace Bookhome.Application.Exceptions.Discounts;
 
 public class DiscountNotFoundException : NotFoundException
 {

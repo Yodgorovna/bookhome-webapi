@@ -100,7 +100,7 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         }
         catch
         {
-            return new Category();
+            return null;
         }
         finally
         {

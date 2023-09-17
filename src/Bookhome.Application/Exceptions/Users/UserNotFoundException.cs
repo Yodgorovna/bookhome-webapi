@@ -1,4 +1,4 @@
-﻿namespace Bookhome.Application.Exception.Users;
+﻿namespace Bookhome.Application.Exceptions.Users;
 
 public class UserNotFoundException : NotFoundException
 {

@@ -1,4 +1,4 @@
-﻿namespace Bookhome.Application.Exception.Orders;
+﻿namespace Bookhome.Application.Exceptions.Orders;
 
 public class OrderNotFoundException : NotFoundException
 {

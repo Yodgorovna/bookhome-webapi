@@ -1,4 +1,4 @@
-﻿namespace Bookhome.Application.Exception.Authors;
+﻿namespace Bookhome.Application.Exceptions.Authors;
 
 public class AuthorNotFoundException : NotFoundException
 {
