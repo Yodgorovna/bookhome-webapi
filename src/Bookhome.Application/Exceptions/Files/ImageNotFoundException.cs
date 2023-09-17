@@ -1,4 +1,4 @@
-﻿namespace Bookhome.Application.Exceptions;
+﻿namespace Bookhome.Application.Exceptions.Files;
 
 public class ImageNotFoundException : NotFoundException
 {

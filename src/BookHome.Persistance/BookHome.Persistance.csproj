@@ -11,14 +11,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validators\" />
     <Folder Include="Attributes\" />
     <Folder Include="Filters\" />
     <Folder Include="Common\" />
+    <Folder Include="Validators\Dtos\Authors\" />
+    <Folder Include="Validators\Dtos\Books\" />
+    <Folder Include="Validators\Dtos\Discounts\" />
+    <Folder Include="Validators\Dtos\Orders\" />
+    <Folder Include="Validators\Dtos\Users\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.151" />
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
   </ItemGroup>
 
 </Project>
