@@ -1,8 +1,8 @@
-﻿namespace BookHome.Domain.Entities.Books;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BookHome.Domain.Entities.Books;
 
 public class BookImageUpdateDto
 {
-    public long BookId { get; set; }
-
-    public string ImagePath { get; set; } = string.Empty;
+    public IFormFile ImagePath { get; set; } = default!;
 }

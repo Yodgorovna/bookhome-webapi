@@ -1,4 +1,6 @@
-﻿namespace BookHome.Persistance.Dtos.Books;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BookHome.Persistance.Dtos.Books;
 
 public class BookCreateDto
 {
@@ -11,4 +13,6 @@ public class BookCreateDto
     public double Price { get; set; }
 
     public bool IsHardCover { get; set; }
+
+    public List<IFormFile> ImagePath { get; set; } = default!;
 }

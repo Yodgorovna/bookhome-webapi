@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BookHome.Persistance.Dtos.Security;
 
-namespace BookHome.Persistance.Dtos.Security
+public class VerificationDto
 {
-    internal class VerificationDto
-    {
-    }
+    public int Code { get; set; }
+
+    public int Attempt { get; set; }
+
+    public DateTime CreatedAt { get; set; }
 }

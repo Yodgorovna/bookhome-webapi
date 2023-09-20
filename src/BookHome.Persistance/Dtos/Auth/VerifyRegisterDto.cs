@@ -6,4 +6,3 @@ public class VerifyRegisterDto
 
     public int Code { get; set; }
 }
-}

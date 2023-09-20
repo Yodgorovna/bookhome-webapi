@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookHome.Persistance.Dtos.Books
+﻿namespace BookHome.Persistance.Dtos.Books;
+public class BookAuthorCreateDto
 {
-    internal class BookAuthorCreateDto
-    {
-    }
+    public long BookId { get; set; }
+
+    public long AuthorId { get; set; }
 }

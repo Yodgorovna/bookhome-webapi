@@ -1,5 +1,7 @@
 using Bookhome.DataAcces.Interfaces.Categories;
+using Bookhome.DataAcces.Interfaces.Users;
 using Bookhome.DataAcces.Repositories.Categories;
+using Bookhome.DataAcces.Repositories.Users;
 using Bookhome.Services.Interfaces.Categories;
 using Bookhome.Services.Interfaces.Common;
 using Bookhome.Services.Services.Categories;
@@ -13,8 +15,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFileService, FileService>();    
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 

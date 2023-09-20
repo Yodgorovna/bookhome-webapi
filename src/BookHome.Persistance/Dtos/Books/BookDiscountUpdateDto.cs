@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BookHome.Persistance.Dtos.Books;
 
-namespace BookHome.Persistance.Dtos.Books
+public class BookDiscountUpdateDto
 {
-    internal class BookDiscountUpdateDto
-    {
-    }
+    public long BookId { get; set; }
+
+    public long DiscountId { get; set; }
+
+    public string Description { get; set; } = string.Empty;
+
+    public int Persentage { get; set; }
+
+    public DateTime StartAt { get; set; }
+
+    public DateTime EndAt { get; set; }
 }

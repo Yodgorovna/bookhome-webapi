@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BookHome.Persistance.Dtos.Books;
 
-namespace BookHome.Persistance.Dtos.Books
+public class BookComentUpdateDto
 {
-    internal class BookCoomentUpdateDto
-    {
-    }
+    public long BookId { get; set; }
+
+    public long UserId { get; set; }
+
+    public string Comment { get; set; } = string.Empty;
+
+    public bool IsEdited { get; set; }
 }
