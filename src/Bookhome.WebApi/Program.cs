@@ -1,11 +1,6 @@
-using Bookhome.DataAcces.Interfaces.Categories;
-using Bookhome.DataAcces.Interfaces.Users;
-using Bookhome.DataAcces.Repositories.Categories;
-using Bookhome.DataAcces.Repositories.Users;
-using Bookhome.Services.Interfaces.Categories;
-using Bookhome.Services.Interfaces.Common;
-using Bookhome.Services.Services.Categories;
-using Bookhome.Services.Services.Common;
+using Bookhome.WebApi.Configurations;
+using Bookhome.WebApi.Configurations.Layers;
+using Bookhome.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,21 +13,33 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMemoryCache();
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IFileService, FileService>();    
-builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.ConfigureJwtAuth();
+builder.ConfigureSwaggerAuth();
+builder.ConfigureCORSPolicy();
+//-->dataacces
+builder.ConfigureDataAccess();
+//-> service
+builder.ConfigureServiceLayer();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
+
+app.UseStaticFiles();
+
+app.UseMiddleware<CrosOriginAccessMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+app.UseAuthentication();    
 
 app.UseAuthorization();
 

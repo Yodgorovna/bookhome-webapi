@@ -1,13 +1,13 @@
 ﻿namespace Bookhome.Application.Exceptions.Users;
 
-public class UserAlreadyExistsExseption : AlreadyExistsException
+public class UserAlreadyExistsException : AlreadyExistsException
 {
-    public UserAlreadyExistsExseption()
+    public UserAlreadyExistsException()
     {
         TitleMessage = "User already exists";
     }
 
-    public UserAlreadyExistsExseption(string phone)
+    public UserAlreadyExistsException(string phone)
     {
         TitleMessage = "This phone is already registered";
     }

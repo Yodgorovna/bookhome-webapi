@@ -10,6 +10,8 @@ public class User : Auditable
 
     public string PhoneNumber { get; set; } = string.Empty;
 
+    public bool PhoneNumberConfirme { get; set; }
+
     public string PassportSeriaNumber { get; set; } = string.Empty;  
 
     public bool IsMale { get; set; }   

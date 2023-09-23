@@ -1,8 +1,9 @@
-﻿using BookHome.Domain.Enums;
+﻿using BookHome.Domain.Entities;
+using BookHome.Domain.Enums;
 
 namespace Bookhome.DataAcces.ViewModels.Users;
 
-public class UserViewModel
+public class UserViewModel : Auditable
 {
     public string FirstName { get; set; } = string.Empty;
 

@@ -109,7 +109,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         }
     }
 
-    public async Task<(int ItemsCount, IList<Author>)> SearchAsync(string search, PaginationParams @params)
+    public async Task<(int ItemsCount, IList<Author>)> SearchAsync(string search)
     {
         try
         {

@@ -112,7 +112,7 @@ public class BookRepository : BaseRepository, IBookRepository
         }
     }
 
-    public async Task<(int ItemsCount, IList<BookViewModel>)> SearchAsync(string search, PaginationParams @params)
+    public async Task<(int ItemsCount, IList<BookViewModel>)> SearchAsync(string search)
     {
         try
         {

@@ -32,8 +32,19 @@ public class UserRepository : BaseRepository, IUserRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "";
+
+            string query = "INSERT INTO public.users(" +
+                "first_name, last_name, phone_number, passport_seria_number, " +
+                "is_male, birth_date, country, region, district, address, " +
+                "password_hash, salt, image_path, last_activity, identity_role, " +
+                "created_at, updated_at, phone_number_confirme) " +
+                "VALUES (@FirstName, @LastName, @PhoneNumber, @PassportSeriaNumber, " +
+                "@IsMale, @BirthDate, @Country, @Region, @District, @Address, " +
+                "@PasswordHash, @Salt, @ImagePath, @LastActivity, @IdentityRole, " +
+                "@CreatedAt, @UpdatedAt, @PhoneNumberConfirme);";
+
             var result = await _connection.ExecuteAsync(query, entity);
+
             return result;
         }
         catch
@@ -129,7 +140,7 @@ public class UserRepository : BaseRepository, IUserRepository
         }
     }
 
-    public async Task<(int ItemsCount, IList<UserViewModel>)> SearchAsync(string search, PaginationParams @params)
+    public async Task<(int ItemsCount, IList<UserViewModel>)> SearchAsync(string search)
     {
         try
         {
@@ -163,7 +174,7 @@ public class UserRepository : BaseRepository, IUserRepository
                 $"passport_seria_number=@PassportSeriaNumber, is_male=@IsMale, birth_date=@BirthDate, " +
                 $"country=@Country, region=@Region, district=@Dictrict, address=@Address, " +
                 $"image_path=@ImagePath, last_activity=@LastActivity, identity_role=@IdentityRole, " +
-                $"created_at=@CreatedAt, updated_at=UpdatedAt" +
+                $"created_at=@CreatedAt, updated_at=UpdatedAt, phone_number_confirme = @PhoneNumberConfirme" +
                 $"WHERE Id = {id};";
 
             var result = await _connection.ExecuteAsync(query, entity);

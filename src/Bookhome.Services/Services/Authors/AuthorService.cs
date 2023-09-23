@@ -1,40 +1,73 @@
-﻿using Bookhome.Application.Utils;
+﻿using Bookhome.Application.Exceptions.Authors;
+using Bookhome.Application.Utils;
+using Bookhome.DataAcces.Interfaces.Authors;
+using Bookhome.Services.Helpers;
 using Bookhome.Services.Interfaces.Authors;
-using BookHome.Domain.Entities.Books;
-using BookHome.Persistance.Dtos.Books;
+using BookHome.Domain.Entities.Authors;
+using BookHome.Persistance.Dtos.Authors;
 
-namespace Bookhome.Services.Services.Authors
+namespace Bookhome.Services.Services.Authors;
+
+public class AuthorService : IAuthorService
 {
-    public class AuthorService : IAuthorService
+    private readonly IAuthorRepository _repository;
+
+    public AuthorService(IAuthorRepository authorRepository)
     {
-        public Task<long> CountAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> CreateAsync(BookCreateDto dto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteAsync(long bookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IList<Book>> GetAllAsync(PaginationParams @params)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Book> GetByIdAsync(long bookId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAsync(long bookId, BookUpdateDto dto)
-        {
-            throw new NotImplementedException();
-        }
+        this._repository = authorRepository;    
     }
+    public async Task<long> CountAsync() => await _repository.CountAsync();
+
+    public async Task<bool> CreateAsync(AuthorCreateDto dto)
+    {
+        Author author = new Author()
+        {
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            Country = dto.Country,
+            CreatedAt = TimeHelper.GetDateTime(),
+            UpdatedAt = TimeHelper.GetDateTime()
+        };
+
+        var result = await _repository.CreateAsync(author);
+
+        return result > 0;
+    }
+
+    public async Task<bool> DeleteAsync(long authorId)
+    {
+        var author = await _repository.GetByIdAsync(authorId);
+        if (author is null) throw new AuthorNotFoundException();
+
+        var result = await _repository.DeleteAsync(authorId);
+        return result > 0;
+    }
+
+    public async Task<IList<Author>> GetAllAsync(PaginationParams @params)
+    {
+        var authors = await _repository.GetAllAsync(@params);
+        return authors;
+    }
+
+    public async Task<Author> GetByIdAsync(long authorId)
+    {
+        var author = await _repository.GetByIdAsync(authorId);
+        if (author is null) throw new AuthorNotFoundException();
+        return author;
+    }
+
+    public async Task<bool> UpdateAsync(long authorId, AuthorUpdateDto dto)
+    {
+        var author = await _repository.GetByIdAsync(authorId);
+        if (author is null) throw new AuthorNotFoundException();
+
+        author.FirstName = dto.FirstName;
+        author.LastName = dto.LastName;
+        author.Country = dto.Country;
+        author.UpdatedAt = TimeHelper.GetDateTime();
+
+        var result = await _repository.UpdateAsync(authorId, author);
+        return result > 0;
+    }
+
 }

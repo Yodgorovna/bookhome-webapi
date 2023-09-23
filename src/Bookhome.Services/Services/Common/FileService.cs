@@ -10,7 +10,7 @@ public class FileService : IFileService
 
     private readonly string MEDIA = "media";
     private readonly string IMAGES = "images";
-    private readonly string AVATAR = "avatar";
+   // private readonly string AVATAR = "avatar";
     private readonly string ROOTPATH;
 
     public FileService(IWebHostEnvironment env)
@@ -42,7 +42,7 @@ public class FileService : IFileService
         throw new NotImplementedException();
     }
 
-    public async Task<string> UploadImageAsync(IFormFile image)
+    public async Task<string> UploadImageAsync(IFormFile image, string rootpath)
     {
         string NewImageName = MediaHelper.MakeImageName(image.FileName);
         string subpath = Path.Combine(MEDIA, IMAGES, NewImageName);

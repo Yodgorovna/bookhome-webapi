@@ -7,7 +7,7 @@ namespace Bookhome.WebApi.Controllers.Common.Categories;
 
 [Route("api/common/categories")]
 [ApiController]
-public class CommonCategoriesController : CommonBaseController
+public class CommonCategoriesController : BaseController
 {
     private readonly ICategoryService _service;
     private readonly int maxPageSize = 30;

@@ -1,6 +1,6 @@
 ﻿namespace BookHome.Persistance.Dtos.Notifications;
 
-public class SmsMessage
+public class SmsSenderDto
 {
     public string Recipent { get; set; } = string.Empty;
 

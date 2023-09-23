@@ -1,15 +1,12 @@
 ﻿using Bookhome.Application.Utils;
 using Bookhome.DataAcces.Interfaces.Orders;
 using Bookhome.DataAcces.ViewModels.Orders;
-using BookHome.Domain.Entities.Authors;
 using BookHome.Domain.Entities.Orders;
-using BookHome.Domain.Entities.Users;
-using BookHome.Domain.Enums;
 using Dapper;
 
 namespace Bookhome.DataAcces.Repositories.Orders;
 
-internal class OrderRepository :BaseRepository, IOrderRepository
+public class OrderRepository :BaseRepository, IOrderRepository
 {
     public async Task<long> CountAsync()
     {
