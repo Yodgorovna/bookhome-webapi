@@ -112,7 +112,7 @@ namespace Bookhome.DataAcces.Repositories.Books
             }
             catch
             {
-                return new BookImage();
+                return null;
             }
             finally
             {

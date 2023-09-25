@@ -10,7 +10,7 @@ namespace Bookhome.WebApi.Controllers.Auth;
 
 [Route("api/auth")]
 [ApiController]
-public class AuthController : BaseController
+public class AuthController : CommonBaseController
 {
     private readonly IAuthService _authService;
     private readonly IUserService _user;
@@ -70,12 +70,11 @@ public class AuthController : BaseController
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync([FromBody] LoginDto dto)
     {
-        var res = PhoneNumberValidator.IsValid(dto.PhoneNumber);
-        if (res == false)
-            return BadRequest("Phone number is invalid!");
+        var validator = new LoginValidator();
+        var valResult = validator.Validate(dto);
+        if (valResult.IsValid == false) return BadRequest(valResult.Errors);
 
         var serviceResult = await _authService.LoginAsync(dto);
-
         return Ok(new { serviceResult.Result, serviceResult.Token });
     }
 

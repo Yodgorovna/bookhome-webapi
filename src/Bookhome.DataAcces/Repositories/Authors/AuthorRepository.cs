@@ -1,6 +1,7 @@
 ﻿using Bookhome.Application.Utils;
 using Bookhome.DataAcces.Interfaces.Authors;
 using BookHome.Domain.Entities.Authors;
+using BookHome.Domain.Entities.Categories;
 using Dapper;
 
 namespace Bookhome.DataAcces.Repositories.Authors;
@@ -75,7 +76,7 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
             await _connection.OpenAsync();
 
             string query = $"SELECT * FROM public.authors order by id desc " +
-                $"offset {@params.GetSkipCount} limit {@params.PageSize};";
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize};";
 
             var result = (await _connection.QueryAsync<Author>(query)).ToList();
             return result;
@@ -96,12 +97,13 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         {
             await _connection.OpenAsync();
             string query = $"SELECT * FROM public.authors WHERE id = @Id;";
-            var result = await _connection.QuerySingleAsync(query, new { Id = id });
+            var result = await _connection.QuerySingleAsync<Author>(query, new { Id = id });
             return result;
+
         }
         catch
         {
-            return new Author();
+            return null;
         }
         finally
         {
@@ -138,10 +140,12 @@ public class AuthorRepository : BaseRepository, IAuthorRepository
         try
         {
             await _connection.OpenAsync();
+
             string query = $"UPDATE public.authors " +
-                $"SET id=@Id, first_name=@Firstname, last_name=@LastName, country=@Country," +
-                $" created_at=@CreatedAt, updated_at=@UpdatedAt " +
-                $"WHERE Id = {id};";
+                $"SET first_name=@Firstname, last_name=@LastName, country=@Country, " +
+                $"created_at=@CreatedAt, updated_at=@UpdatedAt " +
+                $"WHERE id = {id};";
+
             var result = await _connection.ExecuteAsync(query, entity);
             return result;
         }

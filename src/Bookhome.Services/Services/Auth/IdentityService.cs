@@ -12,7 +12,7 @@ public class IdentityService : IIdentityService
     {
         _accessor = accessor;
     }
-    public long Id
+    public long UserId
     {
         get
         {
@@ -48,7 +48,7 @@ public class IdentityService : IIdentityService
         }
     }
 
-    public string FirstName 
+    public string FirstName
     {
         get
         {
@@ -80,7 +80,7 @@ public class IdentityService : IIdentityService
         }
     }
 
-    public string PhoneNumber 
+    public string PhoneNumber
     {
         get
         {
@@ -95,4 +95,5 @@ public class IdentityService : IIdentityService
                 return claim.Value;
         }
     }
+
 }

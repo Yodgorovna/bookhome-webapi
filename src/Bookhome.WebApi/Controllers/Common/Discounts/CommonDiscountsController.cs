@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bookhome.WebApi.Controllers.Common.Discounts
 {
-    [Route("api/common/discount")]
+    [Route("api/common/discounts")]
     [ApiController]
-    public class CommonDiscountController : BaseController
+    public class CommonDiscountsController : CommonBaseController
     {
         private readonly IDiscountService _service;
         private readonly int maxPageSize = 30;
 
-        public CommonDiscountController(IDiscountService service)
+        public CommonDiscountsController(IDiscountService service)
         {
             this._service = service;
         }

@@ -5,7 +5,8 @@ using System.Data;
 
 namespace Bookhome.WebApi.Controllers.Admin;
 
-[Authorize(Roles = "Admin, SuperAdmin")]
+//[Authorize(Roles = "Admin, SuperAdmin")]
+[AllowAnonymous]
 public class AdminBaseController : ControllerBase
 { 
 

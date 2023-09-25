@@ -111,7 +111,7 @@ public class UserRepository : BaseRepository, IUserRepository
         }
         catch
         {
-            return new UserViewModel();
+            return null;
         }
         finally
         {
@@ -129,9 +129,8 @@ public class UserRepository : BaseRepository, IUserRepository
             var result = await _connection.QuerySingleAsync<User>(query, new { PhoneNumber = phone });
             return result;
         }
-        catch (Exception)
+        catch 
         {
-
             return null;
         }
         finally 

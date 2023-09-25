@@ -1,4 +1,5 @@
-﻿using Bookhome.Application.Exceptions.Books;
+﻿using Bookhome.Application.Exceptions.Authors;
+using Bookhome.Application.Exceptions.Books;
 using Bookhome.Application.Exceptions.Categories;
 using Bookhome.Application.Exceptions.Files;
 using Bookhome.Application.Utils;
@@ -8,6 +9,7 @@ using Bookhome.DataAcces.ViewModels.Books;
 using Bookhome.Services.Helpers;
 using Bookhome.Services.Interfaces.Books;
 using Bookhome.Services.Interfaces.Common;
+using BookHome.Domain.Entities.Authors;
 using BookHome.Domain.Entities.Books;
 using BookHome.Persistance.Dtos.Books;
 
@@ -83,28 +85,34 @@ public class BookService : IBookService
 
     public async Task<bool> DeleteAsync(long bookId)
     {
-        var DbFound = await _repository.GetByIdAsync(bookId);
+        var book = await _repository.GetByIdAsync(bookId);
+        if (book is null) throw new BookNotFoundException();
 
-        if (DbFound.Id == 0)
-            throw new BookNotFoundException();
+        var result = await _repository.DeleteAsync(bookId);
+        return result > 0;
+        //var DbFound = await _repository.GetByIdAsync(bookId);
 
-        var DbImgAll = await _imageRepository.GetByIdAllAsync(bookId);
+        //if (DbFound.Id == 0)
+        //    throw new BookNotFoundException();
 
-        if (DbImgAll.Count == 0)
-            throw new ImageNotFoundException();
+        //var DbImgAll = await _imageRepository.GetByIdAllAsync(bookId);
 
-        var DbImgResult = await _imageRepository.DeleteAsync(bookId);
-        var DbResult = await _repository.DeleteAsync(bookId);
+        //if (DbImgAll.Count == 0)
+        //    throw new ImageNotFoundException();
 
-        if (DbResult > 0 && 0 < DbImgResult)
-        {
-            foreach (var item in DbImgAll)
-            {
-                await _fileService.DeleteImageAsync(item.ImagePath);
-            }
-        }
+        //var DbImgResult = await _imageRepository.DeleteAsync(bookId);
+        //var DbResult = await _repository.DeleteAsync(bookId);
 
-        return DbResult > 0;
+        //if (DbResult > 0 && 0 < DbImgResult)
+        //{
+        //    foreach (var item in DbImgAll)
+        //    {
+        //        await _fileService.DeleteImageAsync(item.ImagePath);
+        //    }
+        //}
+
+        //return DbResult > 0;
+
     }
 
     public async Task<IList<BookViewModel>> GetAllAsync(PaginationParams @params)
@@ -136,6 +144,8 @@ public class BookService : IBookService
         _paginator.Paginate(DBCount, @params);
 
         return Result;
+
+
     }
 
     public async Task<BookViewModel> GetByIdAsync(long bookId)

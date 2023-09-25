@@ -16,10 +16,6 @@ namespace Bookhome.WebApi.Controllers.Admin.Users
             this._userService = userService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
-        => Ok(await _userService.GetAllAsync(new PaginationParams(page, maxPage)));
-
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetByIdAsync(int userId)
             => Ok(await _userService.GetByIdAsync(userId));
@@ -28,21 +24,21 @@ namespace Bookhome.WebApi.Controllers.Admin.Users
         public async Task<IActionResult> CountAsync()
             => Ok(await _userService.CountAsync());
 
-       // [HttpGet]
-       // public async Task<IActionResult> GetAllAdminAsync([FromQuery] int page = 1)
-       //=> Ok(await _userService.GetAllAsync(new PaginationParams(page, maxPage)));
-
-
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteAsync(long userId)
             => Ok(await _userService.DeleteAsync(userId));
 
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchAsync([FromQuery] string search)
-        {
-            var res = (await _userService.SearchAsync(search));
+        //[HttpGet("search")]
 
-            return Ok(new { res.IteamCount, res.Item2 });
-        }
+        //public async Task<IActionResult> SearchAsync([FromQuery] string search)
+        //{
+        //    var res = (await _userService.SearchAsync(search));
+
+        //    return Ok(new { res.IteamCount, res.Item2 });
+        //}
+
+        //[HttpGet("{userId}")]
+        //public async Task<IActionResult> GetByIdAsync(long userId)
+        //    => Ok(await _userService.GetByIdAsync(userId));
     }
 }

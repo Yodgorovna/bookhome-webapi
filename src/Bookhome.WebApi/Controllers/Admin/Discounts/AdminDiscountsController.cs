@@ -8,10 +8,10 @@ namespace Bookhome.WebApi.Controllers.Admin.Discounts;
 
 [Route("api/admin/discounts")]
 [ApiController]
-public class AdminDiscountController : ControllerBase
+public class AdminDiscountsController : AdminBaseController
 {
     private IDiscountService _service;
-    public AdminDiscountController(IDiscountService service)
+    public AdminDiscountsController(IDiscountService service)
     {
         this._service = service;
     }
@@ -26,8 +26,6 @@ public class AdminDiscountController : ControllerBase
             return BadRequest(result.Errors);
         }
     }
-
-
     [HttpDelete]
     public async Task<IActionResult> DeleteAsync(long discountId)
         => Ok(await _service.DeleteAsync(discountId));

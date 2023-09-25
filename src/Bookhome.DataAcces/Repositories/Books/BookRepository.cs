@@ -78,7 +78,7 @@ public class BookRepository : BaseRepository, IBookRepository
             await _connection.OpenAsync();
 
             string query = $"SELECT * FROM public.books order by id desc " +
-                $"offset {@params.GetSkipCount} limit {@params.PageSize};";
+                $"offset {@params.GetSkipCount()} limit {@params.PageSize};";
 
             var result = (await _connection.QueryAsync<BookViewModel>(query)).ToList();
             return result;
@@ -99,12 +99,12 @@ public class BookRepository : BaseRepository, IBookRepository
         {
             await _connection.OpenAsync();
             string query = $"SELECT * FROM public.books WHERE id = @Id;";
-            var result = await _connection.QuerySingleAsync(query, new { Id = id });
+            var result = await _connection.QuerySingleAsync<BookViewModel>(query, new { Id = id });
             return result;
         }
         catch
         {
-            return new BookViewModel();
+            return null;
         }
         finally
         {
@@ -142,9 +142,9 @@ public class BookRepository : BaseRepository, IBookRepository
         {
             await _connection.OpenAsync();
             string query =$"UPDATE public.books " +
-                $"SET id=@Id, category_id=@Id, name=@Name, description=@Description," +
-                $" price=@Price, ishard_cover=@IsHardCover, created_at=@CreatedAt, updated_at=@UpdatedAt " +
-                $"WHERE Id = {id};";
+                $"SET category_id=@CategoryId, name=@Name, description=@Description, " +
+                $"price=@Price, ishard_cover=@IsHardCover, created_at=@CreatedAt, updated_at=@UpdatedAt " +
+                $"WHERE id = {id};";
             var result = await _connection.ExecuteAsync(query, entity);
             return result;
         }

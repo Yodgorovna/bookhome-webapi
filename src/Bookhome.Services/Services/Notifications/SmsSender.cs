@@ -14,13 +14,12 @@ public class SmsSender : ISmsSender
     private readonly string EMAIL = "";
     private readonly string PASSWORD = "";
     private string TOKEN = "";
-
     public SmsSender(IConfiguration config)
     {
-        BASE_URL = "https://notify.eskiz.uz"!;
-        SENDER = "4546"!;
-        EMAIL = "lobargoziyeva9@gmail.com"!;
-        PASSWORD = "gpE*YFLUOfxcs&jP"!;
+        BASE_URL = config["Sms:BaseURL"]!;
+        SENDER = config["Sms:Sender"]!;
+        EMAIL = config["Sms:Email"]!;
+        PASSWORD = config["Sms:Password"]!;
     }
 
     private async Task LoginAsync()
@@ -34,7 +33,6 @@ public class SmsSender : ISmsSender
         content.Add(new StringContent(PASSWORD), "password");
         request.Content = content;
         var response = await client.SendAsync(request);
-
         if (response.IsSuccessStatusCode)
         {
             string json = await response.Content.ReadAsStringAsync();
@@ -43,7 +41,7 @@ public class SmsSender : ISmsSender
         }
     }
 
-    public async Task<bool> SendAsync(SmsSenderDto message)
+    public async Task<bool> SendAsync(SmsSenderDto smsMessage)
     {
         var client = new HttpClient();
         client.BaseAddress = new Uri(BASE_URL);
@@ -51,8 +49,8 @@ public class SmsSender : ISmsSender
         request.Headers.Add("Authorization", $"Bearer {TOKEN}");
 
         var content = new MultipartFormDataContent();
-        content.Add(new StringContent(message.Recipent), "mobile_phone");
-        content.Add(new StringContent(message.Title + " " + message.Content), "message");
+        content.Add(new StringContent(smsMessage.Recipent), "mobile_phone");
+        content.Add(new StringContent(smsMessage.Title + " " + smsMessage.Content), "message");
         content.Add(new StringContent(SENDER), "from");
         content.Add(new StringContent("http://0000.uz/test.php"), "callback_url");
         request.Content = content;
@@ -61,12 +59,10 @@ public class SmsSender : ISmsSender
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
             await LoginAsync();
-            return await SendAsync(message);
+            return await SendAsync(smsMessage);
         }
-        else if (response.IsSuccessStatusCode)
-            return true;
-        else
-            return true;
+        else if (response.IsSuccessStatusCode) return true;
+        else return false;
     }
 
     public class EskizLoginDto
@@ -79,10 +75,10 @@ public class SmsSender : ISmsSender
         {
             Data = new EskizToken();
         }
+    }
 
-        public class EskizToken
-        {
-            public string Token { get; set; } = String.Empty;
-        }
+    public class EskizToken
+    {
+        public string Token { get; set; } = String.Empty;
     }
 }

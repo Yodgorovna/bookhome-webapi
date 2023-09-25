@@ -3,6 +3,7 @@ using Bookhome.Application.Utils;
 using Bookhome.DataAcces.Interfaces.Authors;
 using Bookhome.Services.Helpers;
 using Bookhome.Services.Interfaces.Authors;
+using Bookhome.Services.Interfaces.Common;
 using BookHome.Domain.Entities.Authors;
 using BookHome.Persistance.Dtos.Authors;
 
@@ -11,10 +12,12 @@ namespace Bookhome.Services.Services.Authors;
 public class AuthorService : IAuthorService
 {
     private readonly IAuthorRepository _repository;
+    private readonly IPaginator _paginator;
 
-    public AuthorService(IAuthorRepository authorRepository)
+    public AuthorService(IAuthorRepository authorRepository, IPaginator paginator)
     {
         this._repository = authorRepository;    
+        this._paginator = paginator;
     }
     public async Task<long> CountAsync() => await _repository.CountAsync();
 
@@ -46,6 +49,8 @@ public class AuthorService : IAuthorService
     public async Task<IList<Author>> GetAllAsync(PaginationParams @params)
     {
         var authors = await _repository.GetAllAsync(@params);
+        var count = await _repository.CountAsync();
+        _paginator.Paginate(count, @params);
         return authors;
     }
 

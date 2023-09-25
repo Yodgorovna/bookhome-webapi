@@ -2,17 +2,14 @@
 using Bookhome.Application.Exceptions.Users;
 using Bookhome.Application.Utils;
 using Bookhome.DataAcces.Interfaces.Users;
-using Bookhome.DataAcces.Repositories.Users;
 using Bookhome.DataAcces.ViewModels.Users;
 using Bookhome.Services.Helpers;
 using Bookhome.Services.Interfaces.Auth;
 using Bookhome.Services.Interfaces.Common;
 using Bookhome.Services.Interfaces.Users;
 using Bookhome.Services.Security;
+using BookHome.Domain.Entities.Users;
 using BookHome.Persistance.Dtos.Users;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Metrics;
-using System.Net;
 
 namespace Bookhome.Services.Services.Users;
 
@@ -22,6 +19,7 @@ public class UserService : IUserService
     private readonly IIdentityService _identity;
     private readonly IPaginator _paginator;
     private readonly IUserRepository _repository;
+    private readonly string USERIMAGES = "UserImages";
 
     public UserService(
         IUserRepository userRepository,
@@ -36,26 +34,29 @@ public class UserService : IUserService
     }
     public async Task<long> CountAsync() => await _repository.CountAsync(); 
 
-    public  Task<bool> CreateAsync(UserCreateDto dto)
+    public async Task<bool> CreateAsync(UserCreateDto dto)
     {
-        //User user = new User()
-        //{
-        //    FirstName = dto.FirstName,
-        //    LastName = dto.LastName,
-        //    PhoneNumber = dto.PhoneNumber,
-        //    PassportSeriaNumber = dto.PassportSeriaNumber,
-        //    IsMale = dto.IsMale,
-        //    BirthDate = dto.BirthDate,
-        //    Country = dto.Country,
-        //    Region = dto.Region,
-        //    District = dto.District,
-        //    Address = dto.Address,
-
-
-
-
-        //};
-        throw new NotImplementedException();
+        User user = new User()
+        {
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            PhoneNumber = dto.PhoneNumber,
+            PassportSeriaNumber = dto.PassportSeriaNumber,
+            IsMale = dto.IsMale,
+            PhoneNumberConfirme = dto.PhoneNumberConfirme,
+            BirthDate = dto.BirthDate,
+            LastActivity = dto.LastActivity,
+            Country = dto.Country,
+            Region = dto.Region,
+            District = dto.District,
+            Address = dto.Address,
+            PasswordHash = dto.Password,
+            ImagePath = dto.ImagePath,
+            CreatedAt = TimeHelper.GetDateTime(),
+            UpdatedAt = TimeHelper.GetDateTime(),
+        };
+        var DbResult = await _repository.CreateAsync(user);
+        return DbResult > 0;
     }
 
     public async Task<bool> DeleteAsync(long userId)
@@ -96,6 +97,7 @@ public class UserService : IUserService
         user.FirstName = dto.FirstName;
         user.LastName = dto.LastName;
         user.PhoneNumber = dto.PhoneNumber;
+        user.PhoneNumberConfirme = dto.PhoneNumberConfirme;
         user.PassportSeriaNumber = dto.PassportSeriaNumber;
         user.IsMale = dto.IsMale;
         user.BirthDate = dto.BirthDate;
@@ -103,9 +105,10 @@ public class UserService : IUserService
         user.Region = dto.Region;
         user.District = dto.District;
         user.Address = dto.Address;
+        user.ImagePath = dto.ImagePath;
         user.UpdatedAt = TimeHelper.GetDateTime();
 
-        var result = await _repository.UpdateAsync(_identity.Id, user);
+        var result = await _repository.UpdateAsync(_identity.UserId, user);
         return result > 0;
     }
 
@@ -124,7 +127,7 @@ public class UserService : IUserService
             user.PasswordHash = hasher.Hash;
             user.Salt = hasher.Salt;
 
-            var res = await _repository.UpdateAsync(_identity.Id, user);
+            var res = await _repository.UpdateAsync(_identity.UserId, user);
 
             return res > 0;
         }

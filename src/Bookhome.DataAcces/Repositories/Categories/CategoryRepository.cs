@@ -95,7 +95,7 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         {
             await _connection.OpenAsync();
             string query = $"SELECT * FROM public.categories WHERE id = @Id;";
-            var result = await _connection.QuerySingleAsync(query, new { Id = id });
+            var result = await _connection.QuerySingleAsync<Category>(query, new { Id = id });
             return result;
         }
         catch
@@ -113,9 +113,9 @@ public class CategoryRepository : BaseRepository, ICategoryRepository
         try
         {
             await _connection.OpenAsync();
-            string query = $"UPDATE public.categories" +
-                $"SET  name = @Name, created_at = @CreatedAt, updated_at = @UpdatedAt " +
-                $"WHERE Id = {id};";
+            string query = $"UPDATE public.categories " +
+                $"SET name = @Name, created_at = @CreatedAt, updated_at = @UpdatedAt " +
+                $"WHERE id = {id};";
             var result = await _connection.ExecuteAsync(query, entity);
             return result;
         }

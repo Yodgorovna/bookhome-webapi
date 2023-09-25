@@ -103,12 +103,12 @@ public class OrderRepository :BaseRepository, IOrderRepository
         {
             await _connection.OpenAsync();
             string query = $"SELECT * FROM public.orders WHERE id = @Id;";
-            var result = await _connection.QuerySingleAsync(query, new { Id = id });
+            var result = await _connection.QuerySingleAsync<OrderViewModel>(query, new { Id = id });
             return result;
         }
         catch
         {
-            return new OrderViewModel();
+            return null;
         }
         finally
         {

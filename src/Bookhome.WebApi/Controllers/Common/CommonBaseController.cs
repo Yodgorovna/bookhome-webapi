@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bookhome.WebApi.Controllers.Common
 {
     [AllowAnonymous]
-    public class BaseController : ControllerBase
+    public class CommonBaseController : ControllerBase
     {
     }
 }

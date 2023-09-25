@@ -80,7 +80,7 @@ public class DiscountRepository : BaseRepository, IDiscountRepository
             await _connection.OpenAsync();
 
             string query = $"SELECT *" +
-                $"FROM public.discounts ORDER BY id DESC" +
+                $"FROM public.discounts ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize};";
             
             var result = (await _connection.QueryAsync<Discount>(query)).ToList();
@@ -104,12 +104,12 @@ public class DiscountRepository : BaseRepository, IDiscountRepository
             await _connection.OpenAsync();
 
             string query = $"SELECT * FROM public.discounts WHERE id = @Id;";
-            var result = await _connection.QuerySingleAsync(query, new { Id = id });
+            var result = await _connection.QuerySingleAsync<Discount>(query, new { Id = id });
             return result;
         }
         catch
         {
-            return new Discount();
+            return null;
         }
         finally
         {

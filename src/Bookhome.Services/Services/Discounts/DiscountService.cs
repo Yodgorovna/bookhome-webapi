@@ -2,6 +2,7 @@
 using Bookhome.Application.Utils;
 using Bookhome.DataAcces.Interfaces.Discounts;
 using Bookhome.Services.Helpers;
+using Bookhome.Services.Interfaces.Common;
 using Bookhome.Services.Interfaces.Discounts;
 using BookHome.Domain.Entities.Discounts;
 using BookHome.Persistance.Dtos.Discounts;
@@ -11,10 +12,13 @@ namespace Bookhome.Services.Services.Discounts;
 public class DiscountService : IDiscountService
 {
     private readonly IDiscountRepository _repository;
+    private readonly IPaginator _paginator;
 
-    public DiscountService(IDiscountRepository discountRepository)
+    public DiscountService(IDiscountRepository discountRepository,
+        IPaginator paginator)
     {
         this._repository = discountRepository;
+        this._paginator = paginator;
     }
     public async Task<long> CountAsync() => await _repository.CountAsync();
 
@@ -45,7 +49,8 @@ public class DiscountService : IDiscountService
     public async Task<IList<Discount>> GetAllAsync(PaginationParams @params)
     {
         var discounts = await _repository.GetAllAsync(@params);
-        //var count = await _repository.CountAsync();
+        var count = await _repository.CountAsync();
+        _paginator.Paginate(count, @params);
         return discounts;
     }
 

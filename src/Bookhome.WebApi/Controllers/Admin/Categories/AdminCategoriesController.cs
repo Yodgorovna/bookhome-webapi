@@ -7,7 +7,7 @@ namespace Bookhome.WebApi.Controllers.Admin.Categories;
 
 [Route("api/admin/categories")]
 [ApiController]
-public class AdminCategoriesController : ControllerBase
+public class AdminCategoriesController : AdminBaseController
 {
     private ICategoryService _service;
     public AdminCategoriesController(ICategoryService service)
@@ -28,12 +28,12 @@ public class AdminCategoriesController : ControllerBase
     }
 
 
-    [HttpDelete]
+    [HttpDelete("{categoryId}")]
     public async Task<IActionResult> DeleteAsync(long categoryId)
         => Ok(await _service.DeleteAsync(categoryId));
 
 
-    [HttpPut]
+    [HttpPut("{categoryId}")]
     public async Task<IActionResult> UpdateAsync(long categoryId, [FromForm] CategoryUpdateDto dto)
         => Ok(await _service.UpdateAsync(categoryId, dto));
 
