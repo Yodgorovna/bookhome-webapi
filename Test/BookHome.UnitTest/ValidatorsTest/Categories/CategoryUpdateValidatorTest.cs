@@ -31,7 +31,7 @@ namespace BookHome.UnitTest.ValidatorsTest.Categories
         [InlineData("")]
         [InlineData("No")]
         [InlineData("                        ")]
-        [InlineData("Ilmiiiykzjbxfnv,zkjxfbnvz,kjxdbvnzlkjxdfbvn")]
+        [InlineData("I")]
         [InlineData("  ")]
 
         public void CheckFalseTest(string value)

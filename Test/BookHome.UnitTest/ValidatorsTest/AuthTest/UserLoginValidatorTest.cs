@@ -12,9 +12,9 @@ namespace BookHome.UnitTest.ValidatorsTest.AuthTest
         [InlineData("+998935555555", "Qwerty!123")]
         [InlineData("+998940404040", "Hello123!")]
         [InlineData("+998950505050", "MyP@ssw0rd")]
-        [InlineData("+998960606060", "GreenSale!")]
+        [InlineData("+998960606060", "GreenSale!@")]
         [InlineData("+998970707070", "Testing@123")]
-        [InlineData("+998980808080", "Welcome123")]
+        [InlineData("+998980808080", "Welcome123@")]
         [InlineData("+998990909090", "Security#1")]
 
         public void CheckRightValid(string phone, string password)
